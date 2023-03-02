@@ -1,10 +1,13 @@
 import asyncpg
 from aiogram import types
 from aiogram.dispatcher.filters.builtin import CommandStart
-
+from keyboards.default.admin_btn import admins_btn
 from loader import dp, db, bot
 from data.config import ADMINS
-
+@dp.message_handler(CommandStart(), user_id=ADMINS[0])
+async def bot_start_admin(message: types.Message):
+    text=f"👋Admin botga xush kelibsiz!"
+    await message.answer(text, reply_markup=admins_btn)
 
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
