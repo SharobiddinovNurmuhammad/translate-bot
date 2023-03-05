@@ -19,4 +19,5 @@ async def send_ad_to_all(message: types.Message, state: FSMContext):
         user_id = user[1]
         await bot.send_message(chat_id=user_id, text=msg)
         await asyncio.sleep(0.05)
+    await message.answer("Xabar yetkazildi!")
     await state.finish()

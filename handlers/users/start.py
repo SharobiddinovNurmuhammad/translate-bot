@@ -24,7 +24,7 @@ async def bot_users(message: types.Message):
     text = "<b>Botdagi foydalanuvchilar:</b>\n"
     for user in users:
         count_user += 1
-        text += user[0]
+        text += user[0][0]
         text += '\n'
     text += f'\nJami: {count_user} ta'
     await message.answer(text=text)
