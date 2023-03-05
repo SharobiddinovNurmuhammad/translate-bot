@@ -8,33 +8,31 @@ from loader import dp, db
 async def bot_start_admin(message: types.Message):
     await message.answer("Xush kelibsiz admin!", reply_markup=admin_menustart)
 
+@dp.message_handler(text='👥Foydalanuvchilar󠁧󠁢', user_id=ADMINS[0])
+async def bot_users(message: types.Message):
+    users = await db.select_all_users()
+    count_user = 0
+    text = "<b>Botdagi foydalanuvchilar:</b>\n"
+    for user in users:
+        count_user += 1
+        text += user[1]
+        text += '\n'
+    text += f'\nJami: {count_user} ta'
+    await message.answer(text=text)
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
     await message.answer(f"Salom, {message.from_user.full_name}!", reply_markup=menustart)
     try:
-        db.add_user(message.from_user.full_name, message.from_user.id)
+        await db.add_user(message.from_user.full_name, message.from_user.id)
         await message.bot.send_message(chat_id=ADMINS[0],
                                        text=f"{message.from_user.full_name} botga qo'shildi!"
                                        )
     except:
         pass
 
-@dp.message_handler(text='👥Foydalanuvchilar󠁧󠁢', user_id=ADMINS[0])
-async def bot_users(message: types.Message):
-    users = db.select_all_users()
-    count_user = 0
-    text = "<b>Botdagi foydalanuvchilar:</b>\n\n"
-    for user in users:
-        count_user += 1
-        text += f"{count_user}. "
-        text += user[0]
-        text += '\n'
-    text += f"\n<b>Jami: {count_user} ta</b>"
-    await message.answer(text=text)
-
 @dp.message_handler(text='📊Statistika')
 async def get_statistika(message: types.Message):
-    count = db.count_users()
-    await message.answer(f"👥Botdagi jami foydalanuvchi: <b>{count[0]}</b>")
+    count = await db.count_users()
+    await message.answer(f"{count}")
 
 
