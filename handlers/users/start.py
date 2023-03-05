@@ -10,14 +10,15 @@ async def bot_start_admin(message: types.Message):
 
 @dp.message_handler(text='👥Foydalanuvchilar󠁧󠁢', user_id=ADMINS[0])
 async def bot_users(message: types.Message):
-    users = await db.select_all_users()
+    users = db.select_all_users()
     count_user = 0
-    text = "<b>Botdagi foydalanuvchilar:</b>\n"
+    text = "<b>Botdagi foydalanuvchilar:</b>\n\n"
     for user in users:
         count_user += 1
-        text += user[1]
+        text += f"{count_user}. "
+        text += user[0]
         text += '\n'
-    text += f'\nJami: {count_user} ta'
+    text += f"\n<b>Jami: {count_user} ta</b>"
     await message.answer(text=text)
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
@@ -32,7 +33,7 @@ async def bot_start(message: types.Message):
 
 @dp.message_handler(text='📊Statistika')
 async def get_statistika(message: types.Message):
-    count = await db.count_users()
-    await message.answer(f"{count}")
+    count = db.count_users()
+    await message.answer(f"👥Botdagi jami foydalanuvchi: <b>{count[0]}</b>")
 
 
