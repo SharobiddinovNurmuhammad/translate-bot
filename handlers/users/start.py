@@ -17,7 +17,7 @@ async def bot_users(message: types.Message):
         count_user += 1
         text += user[1]
         text += '\n'
-    text += f'\n\n<b><i>Jami: {count_user} ta<i><b>'
+    text += f'\nJami: {count_user} ta'
     await message.answer(text=text)
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
