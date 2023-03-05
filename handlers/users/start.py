@@ -18,13 +18,13 @@ async def bot_start(message: types.Message):
     except sqlite3.IntegrityError as err:
         await bot.send_message(chat_id=ADMINS[0], text=err)
 @dp.message_handler(text='👥Foydalanuvchilar󠁧󠁢', user_id=ADMINS[0])
-async def bot_users(message: types.Message):
+async def bot_userss(message: types.Message):
     users = db.select_all_users()
     count_user = 0
     text = "<b>Botdagi foydalanuvchilar:</b>\n"
     for user in users:
         count_user += 1
-        text += user[0][0]
+        text += user[0]
         text += '\n'
     text += f'\nJami: {count_user} ta'
     await message.answer(text=text)

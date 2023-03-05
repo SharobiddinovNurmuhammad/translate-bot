@@ -11,7 +11,7 @@ async def send_ad_to_all(message: types.Message, state: FSMContext):
     await state.set_state('admin_rek')
 
 @dp.message_handler(state='admin_rek')
-async def send_ad_to_all(message: types.Message, state: FSMContext):
+async def send_ad_to_al(message: types.Message, state: FSMContext):
     users = db.select_all_users()
     msg = message.text
     for user in users:
