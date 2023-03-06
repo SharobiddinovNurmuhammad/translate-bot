@@ -1,7 +1,7 @@
 import sqlite3
 from aiogram import types
 from aiogram.dispatcher.filters.builtin import CommandStart
-from keyboards.default.startmenu import menustart, admin_menustart
+from keyboards.default.startmenu import menustart
 from data.config import ADMINS
 from loader import dp, db, bot
 
@@ -13,9 +13,9 @@ async def bot_start(message: types.Message):
         db.add_user(id=message.from_user.id,
                     name=message.from_user.full_name)
     except sqlite3.IntegrityError as err:
-        await bot.send_message(chat_id=ADMINS[0], text=err)
+        pass
     user = db.select_user(id=message.from_user.id)
-    await bot.send_message(chat_id=ADMINS[0],text=f"{user} qo'shildi bazaga")
+    await bot.send_message(chat_id=ADMINS[0],text=f"{user[1]} qo'shildi bazaga")
 
 @dp.message_handler(text='📊Statistika')
 async def get_statistika(message: types.Message):
