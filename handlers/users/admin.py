@@ -15,13 +15,13 @@ async def bot_start_admin(message: types.Message):
 @dp.message_handler(text="👥Foydalanuvchilar󠁧󠁢", user_id=ADMINS[0])
 async def count_name_users(message: types.Message):
     users = db.select_all_users()
-    text = "<code>Botdagi jami foydalanuvchilar:\n\n"
+    text = "Botdagi jami foydalanuvchilar:\n\n"
     count = 0
     for user in users:
         count += 1
         text += f"{count}. "
-        text += f"{user[1]}\n"
-    text += f"\nJami: {count} ta</code>"
+        text += f"<a href='t.me//user?id={user[0]}'>{user[1]}</a>\n"
+    text += f"\nJami: {count} ta"
     await bot.send_message(chat_id=ADMINS[0], text=text)
 
 @dp.message_handler(text="📰Reklama", user_id=ADMINS[0])
