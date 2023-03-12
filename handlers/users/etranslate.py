@@ -26,17 +26,17 @@ async def etarjimaqil(call: CallbackQuery, state: FSMContext):
         await call.message.answer('Menyu:', reply_markup=menustart)
         await state.finish()
     elif call.data == 'en':
-        if til != 'en':
-            await call.message.edit_text(text=tarjimon.translate(text, dest='en').text, reply_markup=menutranslate)
-        elif til == 'en':
-            await call.answer(text="❌Matn o'zi Ingliz tilida, iltimos boshqa tilni tanlang", show_alert=True)
+            if til != 'en':
+                await call.message.edit_text(text=tarjimon.translate(text, dest='en').text, reply_markup=menutranslate)
+            elif til == 'en':
+                await call.answer(text="❌Matn o'zi Ingliz tilida, iltimos boshqa tilni tanlang", show_alert=True)
     elif call.data == 'ru':
-        if til != 'ru':
-            await call.message.edit_text(text=tarjimon.translate(text, dest='ru').text, reply_markup=menutranslate)
-            await call.answer(cache_time=1)
-        elif til == 'ru':
-            await call.answer(text="❌Matn o'zi Rus tilida, iltimos boshqa tilni tanlang", show_alert=True)
-            await call.answer(cache_time=1)
+            if til != 'ru':
+                await call.message.edit_text(text=tarjimon.translate(text, dest='ru').text, reply_markup=menutranslate)
+                await call.answer(cache_time=1)
+            elif til == 'ru':
+                await call.answer(text="❌Matn o'zi Rus tilida, iltimos boshqa tilni tanlang", show_alert=True)
+                await call.answer(cache_time=1)
     elif call.data == 'uz':
         if til != 'uz':
             await call.message.edit_text(text=tarjimon.translate(text, dest='uz').text, reply_markup=menutranslate)
