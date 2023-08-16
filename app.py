@@ -1,22 +1,17 @@
-from aiogram import executor
+import logging
 
-from loader import dp, db
-import middlewares, filters, handlers
-from utils.notify_admins import on_startup_notify
-from utils.set_bot_commands import set_default_commands
+from config import API_TOKEN
+from aiogram import Bot, Dispatcher, executor, types
 
+bot = Bot(token=API_TOKEN, parse_mode=types.ParseMode.HTML)
+dp = Dispatcher(bot)
 
-async def on_startup(dispatcher):
-    # Birlamchi komandalar (/start va /help)
-    await set_default_commands(dispatcher)
-    # Ma'lumotlar bazasini yaratamiz
-    try:
-        db.create_table_users()
-    except Exception as err:
-        print(err)
-    # Bot ishga tushgani haqida adminga xabar berish
-    await on_startup_notify(dispatcher)
+@dp.message_handler(commands=['start', 'help'])
+async def send_message(message: types.Message):
+    await message.answer(
+        text=f"Salom, {message.from_user.full_name}. Xush kelibsiz!"
+    )
 
+if __name__=='__main__':
+    executor.start_polling(dp, skip_updates=True)
 
-if __name__ == '__main__':
-    executor.start_polling(dp, on_startup=on_startup)
